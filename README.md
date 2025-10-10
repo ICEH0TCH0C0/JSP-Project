@@ -18,7 +18,7 @@
 | Backend | Java (Servlet, JDBC)|
 | Server| Apache Tomcat |
 | Database | Oracle |
-| Tools | Eclipse, Git, GitHub |
+| Tools | Eclipse, Git, GitHub, Visual Studio Code |
 
 ## 🛠️ 설치 및 실행 (Installation & Run)
 # 1. 프로젝트 클론
@@ -56,7 +56,8 @@ project/
  │   │   └── web.xml                 # 배포 서술자
  │   ├── resources/                  # CSS, JS, 이미지
  │   └── index.jsp                   # 메인 페이지
- └── README.md
+ ├──  README.md
+ └──  CreateTable.sql				 #테이블 생성
 </pre>
 
 ## 🌟 주요 기능 (Key Features)
@@ -72,10 +73,13 @@ project/
 
 | 기능 | 미리보기 |
 |------|-----------|
-| 로그인 화면 | ![Login Page](./assets/login.gif) |
-| 회원가입 화면 | ![Register Page](./assets/register.png) |
-| 게시판 목록 | ![Board List](./assets/board-list.jpg) |
-| 게시글 작성 | ![Post Write](./assets/post-write.gif) |
+| 로그인 화면 | ![Login Page](./assets/loginPage.png) |
+| 회원가입 화면 | ![Register Page](./assets/enrollPage.png) |
+| 게시판 목록 | ![Board List](./assets/boardList.png) |
+| 게시글 작성 | ![Post Write](./assets/postWrite.png) |
+| 게시글 상세 | ![Post Detail](./assets/postDetail.png) |
+| 게시글 수정 | ![Post Update](./assets/postUpdate.png) |
+
 
 
 ## 💡 학습 포인트 (Learning Points)
@@ -84,14 +88,3 @@ project/
 - JDBC를 통한 데이터베이스 연결 및 SQL 처리 로직 구현
 - Tomcat 서버를 활용한 배포 및 실행 환경 이해
 - JSP 내 JSTL / EL 사용으로 동적 페이지 구현
-
-
-## 팀원 소개(협업시 추가)
-
-| 이름 | 포지션 | Contact |
-| --- | --- | --- |
-| 최지원 | AI | a1@gmail.com |
-| 최지투 | BE | a1@gmail.com |
-| 최지삼 | FE | a1@gmail.com |
-| 최지사 | FE | a1@gmail.com |
-| 최지오 | FE | a1@gmail.com |
