@@ -28,6 +28,7 @@ public class ListController extends HttpServlet {
 		
 		request.setAttribute("list", list);
 
+		//일반 게시글로 이동
 		request.getRequestDispatcher("views/board/listView.jsp").forward(request, response);
 	}
 

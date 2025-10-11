@@ -54,6 +54,7 @@ public class BoardService {
 		return insertcheck;
 	}
 	
+	// DB에 저장된 boardNo에 맞는 경로 검색하기
 	public String selectFilePath(int boardNo) {
 		Connection conn = getConnection();
 		String upfilePath = new BoardDao().selectFilePath(conn, boardNo);
@@ -76,7 +77,7 @@ public class BoardService {
 		Connection conn = getConnection();
 		BoardDao boardDao = new BoardDao();
 		
-		// 1. 조회수 증가
+		// 조회수 증가
 		int result = boardDao.increaseCount(conn, boardNo);
 		
 		Board b = null;

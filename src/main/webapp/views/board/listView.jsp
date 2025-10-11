@@ -144,7 +144,7 @@
     </div>
     <script>
         function listload(bno) {
-            location.href="${pageContext.request.contextPath}/detail.bo?bno=" + bno;
+            location.href="${pageContext.request.contextPath}/detail.bo?bno=" + bno; //bno 값 보내기
         }
     </script>
 </body>

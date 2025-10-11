@@ -24,7 +24,7 @@ public class BoardDao {
 	
 	public BoardDao(){
 		super();
-		
+		//xml파일 불러오기
 		String path = JDBCTemplate.class.getResource("/db/sql/board-mapper.xml").getPath();
 		
 		try {
@@ -46,6 +46,7 @@ public class BoardDao {
 		try {
 			pstmt = conn.prepareStatement(sql);
 			
+			//쿼리문 실행
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {
@@ -131,6 +132,7 @@ public class BoardDao {
 		return result; 
 	}
 	
+	//DB에 저장된 boardNo에 맞는 경로 검색하기
 	public String selectFilePath(Connection conn, int boardNo) {
 		String path = "";
 		ResultSet rset = null;
@@ -158,6 +160,7 @@ public class BoardDao {
 		return path;
 	}
 	
+	// DB에 파일 삽입
 	public int insertFile(Connection conn, Part upfile, int boardNo) {
 		int result = 0;
 		PreparedStatement pstmt = null;
@@ -224,7 +227,7 @@ public class BoardDao {
 			
 			if(rset.next()) {
 				b = new Board();
-				b.setBoardNo(rset.getInt("BOARD_NO")); // selectBoard 쿼리가 없지만, 일반적인 형태로 수정
+				b.setBoardNo(rset.getInt("BOARD_NO"));
 				b.setCategoryName(rset.getString("CATEGORY_NAME"));
 				b.setBoardTitle(rset.getString("BOARD_TITLE"));
 				b.setBoardContent(rset.getString("BOARD_CONTENT"));

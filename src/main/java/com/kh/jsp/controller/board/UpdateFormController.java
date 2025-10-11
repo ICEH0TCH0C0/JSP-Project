@@ -24,11 +24,11 @@ public class UpdateFormController extends HttpServlet {
         // BoardService 인스턴스 생성
         BoardService boardService = new BoardService();
 
-        // 1. 수정할 게시글 정보 조회
+        // 수정할 게시글 정보 조회
         int bno = Integer.parseInt(request.getParameter("bno"));
         request.setAttribute("board", boardService.selectUpdateBoard(bno)); // 조회수 증가 없는 메소드 호출
         
-        // 2. 카테고리 목록 조회
+        // 카테고리 목록 조회
         List<Category> list = boardService.selectCategory();
         request.setAttribute("categoryList", list);
 

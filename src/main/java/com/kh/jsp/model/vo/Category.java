@@ -13,7 +13,7 @@ public class Category {
 	private int categoryNo;
 	private String categoryName;
 	
-	
+	// 카테고리 스태틱 메서드로 생성 후 객체에 담고 반환
 	public static Category selectCategory(int categoryNo, String categoryName) {
 		Category c = new Category();
 		

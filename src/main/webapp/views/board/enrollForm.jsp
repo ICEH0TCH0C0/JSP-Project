@@ -89,6 +89,7 @@
 						<th>카테고리</th>
 						<td>
 							<select name="category">
+								<!-- list를 가져와 반복하여 카테고리 출력 -->
 								<c:forEach var="category" items="${categoryList}">
 									<option value="${category.categoryNo}">${category.categoryName}</option>
 								</c:forEach>

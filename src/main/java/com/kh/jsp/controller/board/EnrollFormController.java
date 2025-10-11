@@ -21,11 +21,13 @@ public class EnrollFormController extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		//리스트에 카테고리 담기
 		List<Category> list = new BoardService().selectCategory();
 		System.out.println(list);
+
 		request.setAttribute("categoryList", list);
 
-		
+		//게시글 작성 폼으로 이동
 		request.getRequestDispatcher("views/board/enrollForm.jsp").forward(request, response);
 	}
 
