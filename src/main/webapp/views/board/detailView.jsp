@@ -155,6 +155,7 @@
 						<c:choose>
 							<!-- 첨부파일이 있을경우 DB에 경로를 불러오고 다운로드 가능-->
 							<c:when test="${upfile != null}">
+								<!-- 첨부파일의 경로를 EL문으로 다운로드 링크 완성 -->
 								<a href="detail.bo?download=${upfile}">다운로드</a>
 							</c:when>
 							<c:otherwise>
@@ -168,8 +169,10 @@
 
 			<div class="button-group">
 				<a href="${pageContext.request.contextPath}/list.bo" class="btn btn-primary">목록가기</a>
-				<a href="${pageContext.request.contextPath}/updateForm.bo?bno=${board.boardNo}" class="btn btn-warning">수정하기</a>
-				<a href="${pageContext.request.contextPath}/delete.bo?bno=${board.boardNo}" class="btn btn-danger">삭제하기</a>
+				<c:if test="${loginMember != null && loginMember.memberId == board.memberId}">
+					<a href="${pageContext.request.contextPath}/updateForm.bo?bno=${board.boardNo}" class="btn btn-warning">수정하기</a>
+					<a href="${pageContext.request.contextPath}/delete.bo?bno=${board.boardNo}" class="btn btn-danger">삭제하기</a>
+				</c:if>
 			</div>
 		</div>
 

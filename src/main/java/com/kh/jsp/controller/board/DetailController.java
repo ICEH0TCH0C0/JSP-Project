@@ -25,6 +25,8 @@ public class DetailController extends HttpServlet {
 		
 		// BoardService의 selectBoard 메소드 호출 (조회수 증가 + 게시글 조회)
 		Board b = new BoardService().selectBoard(boardNo);
+		
+		//DB에 저장된 파일 경로들 중에서 boardNo와 같은 board의 파일 경로를 검색한 후 String upfilePath에 저장
 		String upfilePath = new BoardService().selectFilePath(boardNo);
 		
 		// 조회 결과에 따라 응답 페이지 지정

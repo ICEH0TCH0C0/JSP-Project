@@ -160,7 +160,7 @@ public class BoardDao {
 		return path;
 	}
 	
-	// DB에 파일 삽입
+	// DB에 파일 경로 삽입
 	public int insertFile(Connection conn, Part upfile, int boardNo) {
 		int result = 0;
 		PreparedStatement pstmt = null;

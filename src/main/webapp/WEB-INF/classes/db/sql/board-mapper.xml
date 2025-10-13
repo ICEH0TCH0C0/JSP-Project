@@ -68,7 +68,8 @@
     <entry key="increaseCount">
         UPDATE BOARD
         SET COUNT = COUNT + 1
-        WHERE BOARD_NO = ? AND STATUS = 'Y'
+        WHERE BOARD_NO = ? 
+        AND STATUS = 'Y'
     </entry>
     <entry key="selectBoard">
         SELECT

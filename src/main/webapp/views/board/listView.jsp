@@ -87,11 +87,12 @@
     <div class="board-container">
         <div class="board-card">
             <h2>일반게시판</h2>
-
-            <div class="write-btn-area">
-                <a class="btn btn-primary" href="${pageContext.request.contextPath}/selectCategory.bo">글쓰기</a>
-            </div>
-
+			
+			<c:if test="${not empty loginMember}">
+            	<div class="write-btn-area">
+                	<a class="btn btn-primary" href="${pageContext.request.contextPath}/selectCategory.bo">글쓰기</a>
+            	</div>
+			</c:if>
             <table class="board-table">
                 <thead>
                     <tr>
@@ -115,10 +116,7 @@
                         <tr onclick="listload(${b.boardNo});">
                             <td>${b.boardNo}</td>
                             <td>${b.categoryName}</td>
-                            <td>
-                                <!-- 사용자가 클릭시 BoardNo를 bno에 저장하고 서버에 요청 -->
-                                ${b.boardTitle}
-                            </td>
+                            <td>${b.boardTitle}</td>
                             <td>${b.boardWriterName}</td>
                             <td>${b.count}</td>
                             <td>${b.createDate}</td>
