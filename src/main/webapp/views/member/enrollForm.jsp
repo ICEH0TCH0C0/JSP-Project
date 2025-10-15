@@ -127,46 +127,46 @@
             }
         }
 
-            //Ajax란
-            //웹페이지를 새로고침하지 않고 서버와 데이터를 주고 받을 수 있게 해주는 기술
-            //예를 들면 게시판에서 댓글을 달았는데 페이지가 새로고침되지 않고 댓글 목록이 수정 된다 -> Ajax 활용
-            // 기존 웹 개발 방식
-            // -> 버튼을 클릭할 때마다 페이지 전체가 서버에 전송되며, 응답을 받기 전 잠시 화면 전체를 휜 화면으로 대기
-            //    서버에서 새로운 HTML만들어서 리턴해준다면 이때 화면을 그려줌 -> 매번 화면이 깜빡인다.
-            /*
-                js를 사용해서 Ajax를 구현할 때는 기본적으로 제공해주는 XmlHttpRequest 객체 사용
-                기본적으로 xml의 데이터 형식을 사용했지만 최근에는 전부 json형식의 데이터를 주고 받는다.
-                const xhr = new XMLHttpRequest();
-                xhr.open("요청방식", "idDulpivateCheck.me?checkId=" + encodeURIComponent(("user01"), true));
-                xhr.onreadystatechange = function() {
-                    if(xhr.readyState === 4) { //요청 완료 상태
-                        if(xhr.status === 200) { //응답성공
-                            const result = xhr.responseText; //문자열 응답
-                            if(result === "생각했던 결과"){
-                                //성공시 실행할 코드
-                            } else {
-                                //실패시 실행할 코드
-                            }
+        //Ajax란
+        //웹페이지를 새로고침하지 않고 서버와 데이터를 주고 받을 수 있게 해주는 기술
+        //예를 들면 게시판에서 댓글을 달았는데 페이지가 새로고침되지 않고 댓글 목록이 수정 된다 -> Ajax 활용
+        // 기존 웹 개발 방식
+        // -> 버튼을 클릭할 때마다 페이지 전체가 서버에 전송되며, 응답을 받기 전 잠시 화면 전체를 휜 화면으로 대기
+        //    서버에서 새로운 HTML만들어서 리턴해준다면 이때 화면을 그려줌 -> 매번 화면이 깜빡인다.
+        /*
+            js를 사용해서 Ajax를 구현할 때는 기본적으로 제공해주는 XmlHttpRequest 객체 사용
+            기본적으로 xml의 데이터 형식을 사용했지만 최근에는 전부 json형식의 데이터를 주고 받는다.
+            const xhr = new XMLHttpRequest();
+            xhr.open("요청방식", "idDulpivateCheck.me?checkId=" + encodeURIComponent(("user01"), true));
+            xhr.onreadystatechange = function() {
+                if(xhr.readyState === 4) { //요청 완료 상태
+                    if(xhr.status === 200) { //응답성공
+                        const result = xhr.responseText; //문자열 응답
+                        if(result === "생각했던 결과"){
+                            //성공시 실행할 코드
+                        } else {
+                            //실패시 실행할 코드
                         }
-                    }       
-                }
-            */
+                    }
+                }       
+            }
+        */
 
-            //ajax란
-            //jQuery에서 ajax기능을 쉽게 사용할 수 있는 함수
-            /*
-            $.ajax({
-                url: "요청을 보낼 주소",
-                type: "요청방식",
-                data: {},
-                success: function(data) {
-                    성공시 실행코드
-                },
-                error: function(){
-                    실패시 실행코드
-                }
-            })
-            */
+        //ajax란
+        //jQuery에서 ajax기능을 쉽게 사용할 수 있는 함수
+        /*
+        $.ajax({
+            url: "요청을 보낼 주소",
+            type: "요청방식",
+            data: {},
+            success: function(data) {
+                성공시 실행코드
+            },
+            error: function(){
+                실패시 실행코드
+            }
+        })
+        */
 
         //중복확인버튼 클릭시 사용자가 입력한 아이디가 이밎 존재하는지에 대한 결과를 알고싶다
         //만약 존재한다면, 사용불가 -> alert 메시지 출력(이미 존재하는 아이디입니다)
