@@ -1,7 +1,5 @@
 package com.kh.jsp.model.vo;
 
-import java.sql.Date;
-
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -16,6 +14,8 @@ public class Reply {
 	private String replyContent;
 	private int refBoardNo;
 	private int replyWriter;
-	private Date createDate;
+	private String createDate;
 	private String status;
+	
+	private String memberId;
 }

@@ -121,7 +121,7 @@
 		}
 	</style>
 </head>
-<body>
+<body onload="init(${board.boardNo})">
 	<jsp:include page="/views/common/menubar.jsp" />
 
 	<div class="board-container">
@@ -201,13 +201,80 @@
 						</c:choose>
 					</tr>
 				</thead>
-				<tbody>
+				<tbody id="reply-container">
 					<!-- 댓글 목록이 여기에 동적으로 추가됩니다 -->
 				</tbody>
 			</table>
 		</div>
 	</div>
 	<script>
+		//콜백함수
+		//다른 함수의 인자로 전달되어 나중에 호출되는 함수
+		//내가 직접 실행하지 않고 특정 시점에 다른 함수가 실행해주는 함수
+		//비동기 코드에서 많이 사용한다. 예를들면, $.ajax에 전달하는 success와 error에 대한 함수도 콜백함수.
+		//함수의 동작을 외부에서 결정할 수 있어서 코드를 클린하게 분리할 수 있다.
+		function init(bno){
+			let result = getReplyList(bno, drawReplyList);
+		}
+
+		//서버로부터 댓글목록을 가져오기 + 화면에 그려주기
+		function getReplyList(bno, callback){
+			$.ajax({
+				url: "rlist.bo",
+				// contentType: "application/json", //요청 데이터 타입(json, text, html, xml...)
+				dataType: "json", //응답 데이터 타입(json, text, html, xml...)
+				data: {
+					boardNo: bno,
+				},
+				success: function(result){
+					console.log("응답 : " + result);
+					callback(result);
+				},
+				error: function(err){
+					console.log("댓글 로드 실패" + err);
+				}
+			})
+		}
+
+		function drawReplyList(replyList){
+			const replyContainer = document.querySelector("#reply-container");
+			
+			replyTable.innerHTML = "";
+
+			for(let r of replyList){
+				const replyRow = document.createElement("tr");
+				replyRow.innerHTML = "<td>" + r.memberId + "</td>" + 
+									 "<td class='text-start'>" + 
+										r.replyContent + 
+										"<div class='small text-secondary mt-1'>"+ r.createDate +"</div>" + 
+									 "</td>" +
+									 "<td><button class='btn btn-outline-danger btn-sm'>삭제</button></td>";
+				
+				let deleteBtn = replyRow.querySelector("button");
+				
+				//closer 때문에 외부 함수가 종료되어도 내부 함수가 closer 환경에 값을 저장하여, 불러올 수 있음
+				deleteBtn.addEventListener("click", function(){
+					deleteReply(r.replyNo, getReplyList(bno, drawReplyList));
+				});
+				replyContainer.appendChild(replyRow);
+			}
+		}
+
+		function insertReply(replyNo, callback){
+			$.ajax({
+				url: "rdelete.bo",
+				data: {
+					replyNo: replyNo,
+				},
+				success: function(result){
+					callback();
+				},
+				error: function(err){
+					console.log("댓글 등록 실패" + err);
+				}
+			})
+		}
+
 		function insertReply(bno){
 			const contentIntput = document.querySelector("#reply-content");
 			$.ajax({
@@ -219,6 +286,9 @@
 				},
 				success: function(result){
 					console.log("응답 : " + result);
+					if(result === "1"){
+						getReplyList(bno, drawReplyList);
+					}
 				},
 				error: function(err){
 					console.log("댓글 등록 실패" + err);
