@@ -2,8 +2,6 @@ package com.kh.jsp.controller.board;
 
 import java.io.IOException;
 
-import com.kh.jsp.model.vo.Board;
-import com.kh.jsp.model.vo.Member;
 import com.kh.jsp.service.BoardService;
 
 import jakarta.servlet.ServletException;
@@ -11,54 +9,49 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 
-@WebServlet("/update.bo")
+/**
+ * Servlet implementation class UpdateController
+ */
+@WebServlet(name = "update.bo", urlPatterns = { "/update.bo" })
 public class UpdateController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
     public UpdateController() {
         super();
+        // TODO Auto-generated constructor stub
     }
 
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session = request.getSession();
-		Member loginMember = (Member)session.getAttribute("loginMember");
+		//board정보를 받아 -> update -> 결과에따른 페이지 응답
 		
-		// 로그인 상태 확인
-		if(loginMember == null) {
-			session.setAttribute("alertMsg", "로그인 후 이용해주세요.");
-			response.sendRedirect(request.getContextPath()); 
-			return;
-		}
-		
-		// 데이터 추출 (게시글 번호, 카테고리, 제목, 내용)
 		int boardNo = Integer.parseInt(request.getParameter("bno"));
 		int categoryNo = Integer.parseInt(request.getParameter("category"));
-		String title = request.getParameter("title");
-		String content = request.getParameter("content");
+		String boardTitle = request.getParameter("title");
+		String boardContent = request.getParameter("content");
 		
-		// Board VO 객체 생성
-		Board b = new Board();
-		b.setBoardNo(boardNo);
-		b.setCategoryNo(categoryNo);
-		b.setBoardTitle(title);
-		b.setBoardContent(content);
-		
-		// Service로 요청 전달 및 결과 받기
-		int result = new BoardService().updateBoard(b);
-		
-		// 결과에 따른 응답 처리
-		if(result > 0) { // 성공
-			session.setAttribute("alertMsg", "게시글이 성공적으로 수정되었습니다.");
+		int result = new BoardService().updateBoard(boardNo, categoryNo, boardTitle, boardContent);
+		if(result > 0) {
+			request.getSession().setAttribute("alertMsg", "게시글 수정 성공");
 			response.sendRedirect(request.getContextPath() + "/detail.bo?bno=" + boardNo);
-		} else { // 실패
-			request.setAttribute("errorMsg", "게시글 수정에 실패했습니다.");
+		} else {
+			request.setAttribute("errorMsg", "게시글 수정 실패");
 			request.getRequestDispatcher("views/common/error.jsp").forward(request, response);
 		}
 	}
 
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
+
 }

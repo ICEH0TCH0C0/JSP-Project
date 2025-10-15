@@ -121,7 +121,7 @@
 		}
 	</style>
 </head>
-<body onload="init(${board.boardNo})">
+<body>
 	<jsp:include page="/views/common/menubar.jsp" />
 
 	<div class="board-container">
@@ -137,7 +137,7 @@
 				</tr>
 				<tr>
 					<th>작성자</th>
-					<td>${board.boardWriterName}</td>
+					<td>${board.memberId}</td>
 					<th>작성일</th>
 					<td>${board.createDate}</td>
 				</tr>
@@ -153,14 +153,14 @@
 					<th>첨부파일</th>
 					<td colspan="3">
 						<c:choose>
-							<!-- 첨부파일이 있을경우 DB에 경로를 불러오고 다운로드 가능-->
-							<c:when test="${upfile != null}">
-								<!-- 첨부파일의 경로를 EL문으로 다운로드 링크 완성 -->
-								<a href="detail.bo?download=${upfile}">다운로드</a>
+							<c:when test="${empty at}">
+								첨부파일이 없습니다.
 							</c:when>
 							<c:otherwise>
-								<!-- 첨부파일이 없을경우 -->
-								첨부파일이 없습니다.
+								<a download="${at.originName}"
+									href="${pageContext.request.contextPath}/${at.filePath}${at.changeName}">
+									${at.originName}
+								</a>
 							</c:otherwise>
 						</c:choose>
 					</td>
@@ -170,8 +170,8 @@
 			<div class="button-group">
 				<a href="${pageContext.request.contextPath}/list.bo" class="btn btn-primary">목록가기</a>
 				<c:if test="${loginMember != null && loginMember.memberId == board.memberId}">
-					<a href="${pageContext.request.contextPath}/updateForm.bo?bno=${board.boardNo}" class="btn btn-warning">수정하기</a>
-					<a href="${pageContext.request.contextPath}/delete.bo?bno=${board.boardNo}" class="btn btn-danger">삭제하기</a>
+					<a class="btn btn-warning" href="${pageContext.request.contextPath}/updateForm.bo?bno=${board.boardNo}">수정하기</a>
+					<a class="btn btn-danger" href="${pageContext.request.contextPath}/delete.bo?bno=${board.boardNo}">삭제하기</a>
 				</c:if>
 			</div>
 		</div>
@@ -181,12 +181,24 @@
 				<thead>
 					<tr>
 						<th width="120">댓글작성</th>
-						<td>
-							<textarea id="reply-content" cols="50" rows="3"></textarea>
-						</td>
-						<td width="100">
-							<button class="btn btn-primary reply-btn" onclick="">댓글등록</button>
-						</td>
+						<c:choose>
+							<c:when test="${loginMember != null}">
+								<td>
+									<textarea id="reply-content" cols="50" rows="3"></textarea>
+								</td>
+								<td width="100">
+									<button class="btn btn-primary reply-btn" onclick="insertReply(${board.boardNo})">댓글등록</button>
+								</td>
+							</c:when>
+							<c:otherwise>
+								<td>
+									<textarea cols="50" rows="3" readonly>댓글등록은 로그인이 필요합니다.</textarea>
+								</td>
+								<td width="100">
+									<button class="btn btn-primary reply-btn" disabled>댓글등록</button>
+								</td>
+							</c:otherwise>
+						</c:choose>
 					</tr>
 				</thead>
 				<tbody>
@@ -195,5 +207,24 @@
 			</table>
 		</div>
 	</div>
+	<script>
+		function insertReply(bno){
+			const contentIntput = document.querySelector("#reply-content");
+			$.ajax({
+				url: "rinsert.bo",
+				type: "post",
+				data: {
+					boardNo: bno,
+					content: contentIntput.value
+				},
+				success: function(result){
+					console.log("응답 : " + result);
+				},
+				error: function(err){
+					console.log("댓글 등록 실패" + err);
+				}
+			})
+		}
+	</script>
 </body>
 </html>
