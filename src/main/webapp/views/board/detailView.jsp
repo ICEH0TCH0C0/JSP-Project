@@ -214,7 +214,8 @@
 		//비동기 코드에서 많이 사용한다. 예를들면, $.ajax에 전달하는 success와 error에 대한 함수도 콜백함수.
 		//함수의 동작을 외부에서 결정할 수 있어서 코드를 클린하게 분리할 수 있다.
 		function init(bno){
-			let result = getReplyList(bno, drawReplyList);
+			getReplyList(bno, drawReplyList);
+
 		}
 
 		//서버로부터 댓글목록을 가져오기 + 화면에 그려주기
