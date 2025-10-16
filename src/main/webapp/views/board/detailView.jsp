@@ -229,7 +229,7 @@
 				},
 				success: function(result){
 					console.log("응답 : " + result);
-					callback(result);
+					callback(result, bno);
 				},
 				error: function(err){
 					console.log("댓글 로드 실패" + err);
@@ -237,7 +237,7 @@
 			})
 		}
 
-		function drawReplyList(replyList){
+		function drawReplyList(replyList, bno){
 			const replyContainer = document.querySelector("#reply-container");
 			
 			replyTable.innerHTML = "";
@@ -255,20 +255,27 @@
 				
 				//closer 때문에 외부 함수가 종료되어도 내부 함수가 closer 환경에 값을 저장하여, 불러올 수 있음
 				deleteBtn.addEventListener("click", function(){
-					deleteReply(r.replyNo, getReplyList(bno, drawReplyList));
+					deleteReply(r.replyNo, function(){ 
+						getReplyList(bno, drawReplyList)}
+					);
 				});
 				replyContainer.appendChild(replyRow);
 			}
 		}
 
-		function insertReply(replyNo, callback){
+		function deleteReply(replyNo, callback){
 			$.ajax({
 				url: "rdelete.bo",
 				data: {
 					replyNo: replyNo,
 				},
 				success: function(result){
-					callback();
+					console.log("응답 : " + result);
+					if(result === "1"){
+						callback(result, d);
+					} else {
+						console.log("댓글 삭제 실패");
+					}
 				},
 				error: function(err){
 					console.log("댓글 등록 실패" + err);

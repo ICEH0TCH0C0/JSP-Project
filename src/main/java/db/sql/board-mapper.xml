@@ -132,4 +132,10 @@
 		 	AND R.STATUS = 'Y'
 		 ORDER BY REPLY_NO DESC
 	</entry>
+	<entry key="deleteReply">
+		UPDATE REPLY
+		   SET STATUS
+		 WHERE REPLY_NO = ?
+		   AND STATUS = 'Y'
+	</entry>
 </properties>

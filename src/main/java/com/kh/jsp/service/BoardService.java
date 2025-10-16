@@ -154,4 +154,19 @@ public class BoardService {
 		close(conn);
 		return list;
 	}
+	
+	public int deleteReply(int replyNo) {
+		Connection conn = getConnection();
+		
+		int result = new BoardDao().deleteReply(conn, replyNo);
+		
+		if(result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		return result;
+	}
 }
