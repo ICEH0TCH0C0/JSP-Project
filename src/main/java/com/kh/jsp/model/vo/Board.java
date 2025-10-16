@@ -26,4 +26,5 @@ public class Board {
 	private String categoryName;
 	private String memberId;
 	
+	private String thumbnailImg;
 }
