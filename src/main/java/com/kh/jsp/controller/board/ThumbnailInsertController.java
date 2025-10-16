@@ -60,6 +60,7 @@ public class ThumbnailInsertController extends HttpServlet {
 			upload.setFileSizeMax(fileMaxSize);
 			upload.setSizeMax(requestMaxSize);
 			
+			//upload에 설정된 위 두 가지 설정을 적용하고 formItems에 파싱된다.
 			List<FileItem> formItems = upload.parseRequest(request);
 		
 			Board b = new Board();
